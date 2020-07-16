@@ -1,2 +1,7 @@
 RewriteEngine On
-RewriteRule ^([^/]+)/? index.php?url=$1 [L,QSA]
+RewriteRule ^([a-z]*\/)*styles.css src/app/views/$1styles.css
+RewriteRule ^([0-9]*\/)*styles.css src/app/views/$1styles.css
+RewriteRule ^(?![\s\S]) index.php?url=$1 [QSA]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^/]+)/? index.php?url=$1 [QSA]

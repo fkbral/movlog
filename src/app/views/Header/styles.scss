@@ -14,6 +14,10 @@ body{
   font-size: 16px;
 }
 
+small {
+  font-size: 0.8rem;
+}
+
 a{
   &:visited{
     color: #0055aa;
@@ -57,18 +61,14 @@ section {
   button {
     background-color: darken(#42397b, 2.5%);
     color: #fff;
-    padding: 2px 12px;
+    padding: 7px 12px;
     border-radius: 4px;
 
     display: flex;
     justify-content: center;
     align-items: center;
     transition: background-color .2s ease-in-out;
-    &::before {
-      content: '+';
-      font-size: 2rem;
-      margin-right: 8px;
-    }
+
     &:hover {
       background-color: darken(#42397b, 5%);
     }

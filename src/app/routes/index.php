@@ -1,5 +1,11 @@
 <?php 
 
+$GLOBALS['pageExists'] = false;
+
+Route::set('',function(){
+  IndexController::createView('Home');
+});
+
 Route::set('index.php',function(){
   IndexController::createView('Home');
 });
@@ -12,8 +18,15 @@ Route::set('users',function(){
 
 Route::set('movies',function(){
   $controller = new MovieController();
-  // $GLOBALS['users'] = $controller->index();
   MovieController::createView('Movies');
 });
+
+Route::set('404',function(){
+  IndexController::createView('404');
+});
+
+if(!$GLOBALS['pageExists']) {
+  header("Location: 404");
+}
 
 ?>

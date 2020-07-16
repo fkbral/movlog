@@ -1,0 +1,21 @@
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  hr {
+    width: 400px;
+    margin-bottom: 48px;
+  }
+
+  h1 {
+    font-size: 96px;
+  }
+
+  h2 {
+    font-size: 36px;
+    font-weight: 300;
+  }
+}

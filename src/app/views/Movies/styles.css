@@ -1,8 +1,144 @@
+.backdrop {
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: .2s ease-in-out;
+  transition: .2s ease-in-out;
+}
+
+.backdrop.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.backdrop .modal {
+  width: 100%;
+  height: 450px;
+  max-width: 900px;
+  border-radius: 4px;
+  background-color: #282a36;
+  position: relative;
+}
+
+.backdrop .modal [data-close] {
+  position: absolute;
+  top: 10px;
+  right: 18px;
+  font-size: 1rem;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  padding: 16px;
+  background-color: transparent;
+  outline: none;
+  -webkit-transition: .2s ease-in-out;
+  transition: .2s ease-in-out;
+}
+
+.backdrop .modal [data-close] span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  color: #fff;
+}
+
+.backdrop .modal [data-close]:hover {
+  background-color: #fff;
+}
+
+.backdrop .modal [data-close]:hover span {
+  color: #282a36;
+}
+
+.backdrop .modal .content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.backdrop .modal .poster img {
+  height: 450px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.backdrop .modal .details {
+  padding: 24px 32px;
+}
+
+.backdrop .modal .details .title {
+  padding: 0 48px 0 0;
+}
+
+.backdrop .modal .details .title strong {
+  margin-right: 24px;
+}
+
+.backdrop .modal .details .title small {
+  padding: 0 12px 0 0;
+}
+
+.backdrop .modal .details .title small + small {
+  padding: 0 12px;
+  border-left: 1px solid #555;
+}
+
+.backdrop .modal .details hr {
+  margin: 10px 0;
+}
+
+.backdrop .modal .details .rating {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.backdrop .modal .details .rating i {
+  color: #DBA506;
+  font-size: 2.5rem;
+  margin-right: 8px;
+}
+
+#search-form {
+  position: relative;
+  z-index: 10;
+}
+
 .search-group {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   width: 100%;
+}
+
+.search-group button[type="submit"] {
+  margin-left: 8px;
+}
+
+.search-group button i {
+  font-size: 1rem;
+  margin-right: 8px;
 }
 
 .search-group > div {
@@ -16,6 +152,7 @@
 
 .search-group > div #search:focus + #search-results {
   opacity: 1;
+  pointer-events: all;
 }
 
 .search-group > div #search-results {
@@ -24,8 +161,16 @@
   border-radius: 4px;
   background-color: #333;
   opacity: 0;
+  pointer-events: none;
+  -webkit-transition: opacity .2s ease-in-out;
+  transition: opacity .2s ease-in-out;
   position: absolute;
-  top: 50px;
+  top: 44px;
+}
+
+.search-group > div #search-results:focus, .search-group > div #search-results:hover {
+  opacity: 1;
+  pointer-events: all;
 }
 
 .search-group > div #search-results ul {
@@ -37,16 +182,72 @@
 .search-group > div #search-results ul li {
   padding: 10px 1rem;
   border-bottom: 2px solid #444;
-  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
-.search-group > div #search-results.active {
-  opacity: 1;
-  pointer-events: all;
+.search-group > div #search-results ul li img {
+  --small-poster-multiplier: 2.5;
+  width: calc(26px * var(--small-poster-multiplier));
+  height: calc(40px * var(--small-poster-multiplier));
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
-.search-group button {
+.search-group > div #search-results ul li div.add-to-list-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 12px;
+}
+
+.search-group > div #search-results ul li div.add-to-list-buttons button i {
+  margin-right: 0;
+  pointer-events: none;
+}
+
+.search-group > div #search-results ul li div.add-to-list-buttons button + button {
   margin-left: 8px;
+}
+
+.search-group > div #search-results ul li [data-more] {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.search-group > div #search-results ul li [data-more] button {
+  background-color: transparent;
+  padding-bottom: 20px;
+  margin-right: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  outline: none;
+  white-space: nowrap;
+}
+
+.search-group > div #search-results ul li [data-more] button i {
+  pointer-events: none;
+}
+
+.search-group > div #search-results ul li [data-more] button i::after {
+  content: 'more details';
+  margin-left: 6px;
+  font-family: 'Nunito', sans-serif;
+  -webkit-transition: .2s ease-in-out;
+  transition: .2s ease-in-out;
+}
+
+.search-group > div #search-results ul li [data-more] button:hover i::after {
+  margin-left: 10px;
 }
 
 .movie-list ul {
@@ -67,14 +268,14 @@
   max-width: var(--poster-width);
 }
 
-.movie-list ul li div {
+.movie-list ul li > [data-cover] {
   width: var(--poster-width);
   height: var(--poster-height);
   position: relative;
   margin-bottom: 12px;
 }
 
-.movie-list ul li div::after {
+.movie-list ul li > [data-cover]::after {
   content: '';
   height: 100%;
   width: 100%;
@@ -83,6 +284,60 @@
   position: absolute;
   left: 0;
   top: 0;
+}
+
+.movie-list ul li > [data-cover] div.actions {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 3;
+  opacity: 0;
+  -webkit-transition: .2s ease-in-out;
+  transition: .2s ease-in-out;
+}
+
+.movie-list ul li > [data-cover] div.actions:hover {
+  opacity: 1;
+}
+
+.movie-list ul li > [data-cover] div.actions .removeAndStatus {
+  padding: 8px 8px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.movie-list ul li > [data-cover] div.actions .removeAndStatus button i {
+  pointer-events: none;
+}
+
+.movie-list ul li > [data-cover] div.actions .to-details {
+  padding: 80px 0 15px;
+  width: 100%;
+  text-align: center;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.8)));
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+  border-radius: 12px;
+  cursor: pointer;
+  outline: none;
+  position: absolute;
+  bottom: 0px;
+}
+
+.movie-list ul li > [data-cover] div.actions .to-details i {
+  pointer-events: none;
+  font-size: 24px;
+  position: relative;
+  -webkit-transition: .2s ease-in-out;
+  transition: .2s ease-in-out;
+  bottom: 0;
+}
+
+.movie-list ul li > [data-cover] div.actions .to-details:hover i {
+  bottom: 8px;
 }
 
 .movie-list ul li img {

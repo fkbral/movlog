@@ -9,7 +9,9 @@ class Route {
 
   public static function set($route, $render) {
     array_push(self::$validRoutes, $route);
+
     if($_GET['url'] === $route){
+      $GLOBALS['pageExists'] = true;
       $render->__invoke();
     }
   }
