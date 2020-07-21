@@ -1,4 +1,6 @@
-<p align="center">![Movlog](./public/assets/movlog.jpg)</p>
+<p align="center">
+<img src="./public/assets/movlog.jpg" alt="Movlog"></img>
+</p>
 
 # About
 
