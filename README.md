@@ -1,4 +1,4 @@
-<span style="display:block;text-align:center;">![Movlog](./public/assets/movlog.jpg)</span>
+<p align="center">![Movlog](./public/assets/movlog.jpg)</p>
 
 # About
 
