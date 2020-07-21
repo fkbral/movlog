@@ -80,6 +80,7 @@
                   data-id="<?=$movie['id']?>"
                   data-details="<?=$movie['has_details']?>">
                     <i class="fas fa-chevron-up"></i>
+                    <i class="loading-icon fas fa-spinner"></i>
                   </button>
                 </div>
                 <img src="<?=$movie['poster']?>" alt="<?=$movie['title']?>"
@@ -122,6 +123,7 @@
                   data-details="<?=$movie['has_details']?>"
                   >
                     <i class="fas fa-chevron-up"></i>
+                    <i class="loading-icon fas fa-spinner"></i>
                   </button>
                 </div>
                 <img src="<?=$movie['poster']?>" alt="<?=$movie['title']?>"

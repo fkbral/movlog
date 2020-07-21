@@ -23,23 +23,31 @@ function setSearchInputFocus() {
 
 document.addEventListener('click', event => {
   if(event.target.classList.contains('backdrop')){
-    movieModal.classList.remove('active');
-    setSearchInputFocus();
+    handleModal();
   }
 });
 
 movieModal.querySelector('[data-close]').addEventListener('click', event => {
-  movieModal.classList.remove('active');
-  setSearchInputFocus();
+  handleModal();
 });
 
 document.addEventListener('keydown', event => {
   if(!movieModal.classList.contains('active')) return;
   if(event.key === 'Escape'){
-    movieModal.classList.remove('active');
-    setSearchInputFocus();
+    handleModal();
   }
 });
+
+function handleModal(close = true){
+  if(!close){
+    movieModal.classList.add('active');
+    document.body.classList.add('no-scroll');
+    return;
+  }
+  movieModal.classList.remove('active');
+  document.body.classList.remove('no-scroll');
+  setSearchInputFocus();
+}
 
 [...movieListLi].map(watched => {
   watched.querySelector('[data-action="remove"]').onclick = handleRemoveMovie;
@@ -121,13 +129,6 @@ HTMLElement.prototype.appendChildren = function appendChildren(array=[]) {
 }
 
 function createAddToListButtons(id){
-  const addToWatchedButton = document.createElement('button');
-  const addToWatchedButtonIcon = document.createElement('i');
-  addToWatchedButtonIcon.classList.add('far','fa-eye');
-  addToWatchedButton.appendChild(addToWatchedButtonIcon);
-  addToWatchedButton.dataset.id = id;
-  addToWatchedButton.dataset.status = 1;
-  addToWatchedButton.onclick = handleAddMovie;
 
   const addToPlanedButton = document.createElement('button');
   const addToPlanedButtonIcon = document.createElement('i');
@@ -137,9 +138,17 @@ function createAddToListButtons(id){
   addToPlanedButton.dataset.status = 0;
   addToPlanedButton.onclick = handleAddMovie;
 
+  const addToWatchedButton = document.createElement('button');
+  const addToWatchedButtonIcon = document.createElement('i');
+  addToWatchedButtonIcon.classList.add('far','fa-eye');
+  addToWatchedButton.appendChild(addToWatchedButtonIcon);
+  addToWatchedButton.dataset.id = id;
+  addToWatchedButton.dataset.status = 1;
+  addToWatchedButton.onclick = handleAddMovie;
+
   const addToListButtonsDiv = document.createElement('div');
   addToListButtonsDiv.classList.add('add-to-list-buttons');
-  addToListButtonsDiv.appendChildren([addToWatchedButton, addToPlanedButton]);
+  addToListButtonsDiv.appendChildren([addToPlanedButton, addToWatchedButton]);
 
   return addToListButtonsDiv;
 }
@@ -200,6 +209,7 @@ function handleAddMovie(event){
     body: formData,
   }).then(result => result.json())
   .then(data => {
+    if(!data.id) return;
     const movieElement = document.createElement('li');
 
     movieElement.setAttribute('data-id', `${data['id']}`);
@@ -299,6 +309,8 @@ function handleGetMovieDetails(event, readonly = false){
 
   if(movieHasDetails === '1') return openLightBox(event.target);
 
+  event.target.classList.add('loading');
+
   fetch(`https://omdbapi.com/?i=${movieIdToFetchDetails}&apikey=${credentials.apiKey}`)
   .then(result => result.json())
   .then(data => {
@@ -320,6 +332,8 @@ function handleGetMovieDetails(event, readonly = false){
       movieToUpdateDetails.id = movieIdToFetchDetails;
       movies.push(movieToUpdateDetails)
     };
+
+    event.target.classList.remove('loading');
 
     openLightBox(event.target);
     
@@ -347,7 +361,7 @@ function openLightBox(target){
     movieModal.querySelector('.poster img').setAttribute('alt', movie.title);
   }
 
-  movieModal.classList.add('active');
+  handleModal(false);
 }
 
 function saveMovieDetails(movieDetails) {

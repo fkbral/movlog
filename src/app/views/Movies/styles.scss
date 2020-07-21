@@ -1,8 +1,40 @@
+@mixin smallest {
+  @media (max-width: 325px){
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: 767px){
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (min-width: 768px){
+    @content;
+  }
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+section h1 {
+  @include mobile {
+    font-size: 2.8rem;
+  }
+  @include smallest {
+    font-size: 2.2rem;
+  }
+}
+
 .backdrop{
   width: 100%;
   height: 100%;
   z-index: 20;
   background-color: rgba(0,0,0,.6);
+  overflow: auto;
 
   position: fixed;
   left: 0;
@@ -20,13 +52,20 @@
     pointer-events: all;
   }
 
+  @include mobile {
+    display: block;
+  }
+
   .modal {
     width: 100%;
-    height: 450px;
+    min-height: 450px;
     max-width: 900px;
-    border-radius: 4px;
-    background-color: #282a36;
     position: relative;
+
+    @include mobile {
+      margin: 15px;
+      width: calc(100% - 30px);
+    }
 
     [data-close] {
       position: absolute;
@@ -39,6 +78,11 @@
       background-color: transparent;
       outline: none;
       transition: .2s ease-in-out;
+      @include mobile {
+        top: 18px;
+        right: 6px;
+        // border-radius: 0px;
+      }
 
       span {
         position: absolute;
@@ -55,18 +99,34 @@
           color: #282a36;
         }
       }
+      @include mobile {
+        background-color: #fff;
+
+        span {
+          color: #282a36;
+        }
+      }
     }
     
     .content {
       display: flex;
+      background-color: #282a36;
+      border-radius: 4px;
+      @include mobile{
+        flex-direction: column;
+      }
     }
 
     .poster {
       img {
-        height: 450px;
+        height: 100%;
+        min-height: 420px;
         border-top-left-radius: 4px;
         border-bottom-left-radius: 4px;
         object-fit: cover;
+        @include mobile {
+          width: 100%;
+        }
       }
     }
 
@@ -112,6 +172,10 @@
   display: flex;
   width: 100%;
 
+  input {
+    width: 100%;
+  }
+
   button {
     &[type="submit"]{
       margin-left: 8px;
@@ -128,6 +192,10 @@
 
     display: flex;
     position: relative;
+
+    @include mobile {
+      max-width: calc(100% - 104px);
+    }
 
     #search {
       &:focus {
@@ -150,6 +218,10 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity .2s ease-in-out;
+
+      @include mobile {
+        width: calc(100vw - 40px);
+      }
 
       position: absolute;
       top:44px;
@@ -203,6 +275,9 @@
                   margin-left: 6px;
                   font-family: 'Nunito', sans-serif;
                   transition: .2s ease-in-out;
+                  @include smallest {
+                    content: 'more';
+                  }
                 }
               }
               &:hover {
@@ -223,12 +298,19 @@
   ul {
     display: grid;
     grid-template-columns: repeat(auto-fill, 220px);
-    gap: 1.5rem 0;
+    gap: 1.5rem 1.5rem;
     flex-wrap: wrap;
     list-style: none;
-    --poster-multiplier: .7;
+    @include laptop {
+      --poster-multiplier: .7;
+    }
     --poster-width: calc(260px * var(--poster-multiplier));
     --poster-height: calc(400px * var(--poster-multiplier));
+
+    @include mobile {
+      --poster-multipler: .5;
+      grid-template-columns: repeat(auto-fill, calc(50% - 0.75rem));
+    }
 
     li{
       max-width: var(--poster-width) ;
@@ -247,6 +329,12 @@
           left: 0;
           top: 0;
         }
+        &:hover {
+          .actions {
+            opacity: 1;
+            pointer-events: all;
+          }
+        }
         div.actions {
           width: 100%;
           height: 100%;
@@ -254,9 +342,11 @@
           z-index: 3;
           opacity: 0;
           transition: .2s ease-in-out;
+          pointer-events: none;
 
-          &:hover {
+          @include mobile {
             opacity: 1;
+            pointer-events: all;
           }
 
           .removeAndStatus {
@@ -270,6 +360,16 @@
               }
             }
           }
+
+          @keyframes loading {
+            0%{
+              transform: rotate(0deg);
+            }
+            100% {
+              transform: rotate(360deg);
+            }
+          }
+
           .to-details {
             padding: 80px 0 15px;
             width: 100%;
@@ -288,6 +388,20 @@
               position: relative;
               transition: .2s ease-in-out;
               bottom: 0;
+            }
+
+            i.loading-icon {
+              animation: loading 1s infinite forwards ease-in-out;
+              display: none;
+            }
+
+            &.loading {
+              i {
+                display: none;
+              }
+              i.loading-icon {
+                display: block;
+              }
             }
 
             &:hover {

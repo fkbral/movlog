@@ -28,6 +28,13 @@ class MovieController extends Controller {
     if(isset($_POST['movie'])){
       $movie = (array) json_decode($_POST['movie']);
 
+      $movieExists = Movie::query("SELECT * FROM movies WHERE `id` = '$movie[imdbID]'");
+
+      if ($movieExists) {
+        echo json_encode(['message' => 'movie already exists']);
+        die();
+      }
+
       $movieFormatted =  array('id' => $movie['imdbID'], 'title' => $movie['Title'],
        'year' => $movie['Year'], 'type' => $movie['Type'], 
        'poster' => $movie['Poster'], 'status' => $movie['status']);
