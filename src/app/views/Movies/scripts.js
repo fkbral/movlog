@@ -234,12 +234,12 @@ function handleAddMovie(event){
     movieElement.appendChildren([imageDiv, p1, p2]);
 
     if(movie.status == 0){
-      movieListUlPlanned.appendChild(movieElement);
+      movieListUlPlanned.prepend(movieElement);
       if(movieListUlPlanned.childElementCount === 0);
         movieListUlPlanned.querySelector('p').style.display = 'none';
     }
     else{
-      movieListUlWatched.appendChild(movieElement);
+      movieListUlWatched.prepend(movieElement);
       if(movieListUlWatched.childElementCount === 0);
         movieListUlWatched.querySelector('p').style.display = 'none';
     }

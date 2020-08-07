@@ -347,9 +347,24 @@ body.no-scroll {
   --poster-height: calc(400px * var(--poster-multiplier));
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1271px) {
   .movie-list ul {
     --poster-multiplier: .7;
+  }
+}
+
+@media (max-width: 1366px) {
+  .movie-list ul {
+    -ms-grid-columns: (185px)[auto-fill];
+        grid-template-columns: repeat(auto-fill, 185px);
+  }
+}
+
+@media (max-width: 1270px) {
+  .movie-list ul {
+    --poster-multiplier: .6;
+    -ms-grid-columns: (155px)[auto-fill];
+        grid-template-columns: repeat(auto-fill, 155px);
   }
 }
 

@@ -10,8 +10,20 @@
   }
 }
 
+@mixin tablet {
+  @media (max-width: 1270px){
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1271px){
+    @content;
+  }
+}
+
 @mixin laptop {
-  @media (min-width: 768px){
+  @media (max-width: 1366px){
     @content;
   }
 }
@@ -301,11 +313,20 @@ section h1 {
     gap: 1.5rem 1.5rem;
     flex-wrap: wrap;
     list-style: none;
-    @include laptop {
+    @include desktop {
       --poster-multiplier: .7;
     }
     --poster-width: calc(260px * var(--poster-multiplier));
     --poster-height: calc(400px * var(--poster-multiplier));
+
+    @include laptop {
+      grid-template-columns: repeat(auto-fill, 185px);
+    }
+
+    @include tablet {
+      --poster-multiplier: .6;
+      grid-template-columns: repeat(auto-fill, 155px);
+    }
 
     @include mobile {
       --poster-multipler: .5;

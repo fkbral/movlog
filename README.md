@@ -4,7 +4,7 @@
 
 # About
 
-Orgazine your movies! Built with PHP, MySQL, JavaScript and OMDB api. 
+Organize your movies! Built with PHP, MySQL, JavaScript and OMDB api.
 
 # Features
 - 🔍 Find movies or tv shows with detailed description straight from IMDb sources
@@ -12,6 +12,11 @@ Orgazine your movies! Built with PHP, MySQL, JavaScript and OMDB api.
   - ⏳ Plan to watch: organize your binge sessions
   - ✅ Watched: catalog your "collection"
 - 📱 Mobile friendly interface
+
+# Web app showcase
+<p align="center">
+  <img src="./_captures/movlog.gif">
+</p>
 
 # Run Locally
 ## Requisites

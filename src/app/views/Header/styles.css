@@ -45,6 +45,12 @@ section {
   padding: 0 30px;
 }
 
+@media (max-width: 1366px) {
+  section {
+    max-width: 95vw;
+  }
+}
+
 @media (max-width: 767px) {
   section {
     max-width: 100vw;
