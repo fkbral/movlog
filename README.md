@@ -2,6 +2,11 @@
 <img src="./public/assets/movlog.jpg" alt="Movlog"></img>
 </p>
 
+# Author
+<p align="center">
+<img src="https://github.com/fkbral.png" alt="Movlog" style="border-radius: 50%;" width="80"></img>
+</p>
+
 # About
 
 Organize your movies! Built with PHP, MySQL, JavaScript and OMDB api.
